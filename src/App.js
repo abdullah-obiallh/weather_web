@@ -19,7 +19,6 @@ function App() {
     }, 2000);
   }
   const [Show, setShow] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [weather, setWeather] = useState(null);
   const [ShowMassage, setShowMassage] = useState("");
   const API_KEY = process.env.REACT_APP_OPENWEATHER_KEY;
