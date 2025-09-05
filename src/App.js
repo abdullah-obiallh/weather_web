@@ -4,6 +4,7 @@ import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import TextField from "@mui/material/TextField";
 import SnackBar from "./Components/SnackBar";
 import Grow from "@mui/material/Grow";
+import Grid from "@mui/material/Grid";
 
 import Card from "./Components/Card";
 import axios from "axios";
@@ -84,86 +85,90 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
   return (
-    <div>
-      <SnackBar State={Show} Massage={ShowMassage} />
+    <Grid container>
+      <Grid size={{ xs: 12, md: 12 }}>
+        <div>
+          <SnackBar State={Show} Massage={ShowMassage} />
 
-      <div
-        dir={language ? "ltr" : "rtl"}
-        style={{ fontFamily: "IBM", fontWeight: "300", color: "white" }}
-        className="App"
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "end",
-          }}
-        >
           <div
             dir={language ? "ltr" : "rtl"}
-            style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: "10px",
-            }}
+            style={{ fontFamily: "IBM", fontWeight: "300", color: "white" }}
+            className="App"
           >
-            <TravelExploreIcon
-              style={{ fontSize: "35px", margin: "0px 3px" }}
-            />
-            <TextField
-              value={inputfield}
-              onChange={handelChangeSearchfield}
-              onKeyDown={handelsendkey}
-              placeholder="Enter City"
+            <div
               style={{
-                paddingrig: "10px",
-                width: "90%",
-                background: "#ffffff4f",
-
-                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "end",
               }}
-              InputProps={{
-                style: {
-                  fontSize: "27px",
-                  color: "#ddd",
-                  height: "60px",
-                },
-              }}
-              sx={{
-                width: "350px",
-                background: "#ffffff30",
-                borderRadius: "8px",
-                "& .MuiInputBase-input::placeholder": {
-                  color: "#ddd",
-                  opacity: 1,
-                },
-              }}
-              variant="filled"
-            />
-          </div>
-          <Grow
-            in={Boolean(weather)}
-            key={[weather?.name, language]}
-            timeout={800}
-            unmountOnExit
-          >
-            <div>
-              <Card weather={weather} language={language} />
-              <Button
-                style={{ marginTop: "13px", background: "white" }}
-                variant="text"
-                value={language}
-                onClick={handelLanguageClick}
+            >
+              <div
+                dir={language ? "ltr" : "rtl"}
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginBottom: "10px",
+                }}
               >
-                {!language ? "English" : "Arabic"}
-              </Button>
+                <TravelExploreIcon
+                  style={{ fontSize: "35px", margin: "0px 3px" }}
+                />
+                <TextField
+                  value={inputfield}
+                  onChange={handelChangeSearchfield}
+                  onKeyDown={handelsendkey}
+                  placeholder="Enter City"
+                  style={{
+                    paddingrig: "10px",
+                    width: "90%",
+                    background: "#ffffff4f",
+
+                    borderRadius: "10px",
+                  }}
+                  InputProps={{
+                    style: {
+                      fontSize: "27px",
+                      borderRadius: "10px",
+                      color: "#ddd",
+                      paddingBottom: "10px",
+                    },
+                  }}
+                  sx={{
+                    width: "350px",
+                    background: "#ffffff30",
+                    borderRadius: "8px",
+                    "& .MuiInputBase-input::placeholder": {
+                      color: "#ddd",
+                    },
+                  }}
+                  variant="filled"
+                />
+              </div>
+              <Grow
+                in={Boolean(weather)}
+                key={[weather?.name, language]}
+                timeout={800}
+                unmountOnExit
+              >
+                <div>
+                  <Card weather={weather} language={language} />
+                  <Button
+                    style={{ marginTop: "13px", background: "white" }}
+                    variant="text"
+                    value={language}
+                    onClick={handelLanguageClick}
+                  >
+                    {!language ? "English" : "Arabic"}
+                  </Button>
+                </div>
+              </Grow>
             </div>
-          </Grow>
+          </div>
         </div>
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 }
 

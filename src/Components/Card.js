@@ -31,12 +31,12 @@ export default function Card({ weather, language }) {
             style={{
               display: "flex",
               alignItems: "end",
-              justifyContent: "space-between",
+              justifyContent: "space-around",
               fontSize: "23px",
             }}
           >
-            <h1 style={{ margin: "0px 0px" }}>{weather.name}</h1>
-            <h3 style={{ margin: "0px 0px" }}>{date}</h3>
+            <h1 style={{ margin: "0px 10px" }}>{weather.name}</h1>
+            <h3 style={{ margin: "0px 10px" }}>{date}</h3>
           </div>
           <hr />
 
@@ -48,10 +48,13 @@ export default function Card({ weather, language }) {
               alignItems: "center",
               gap: "50px",
               fontSize: "100px",
+              justifyContent: "space-around",
             }}
           >
-            {weather.temp}°
-            <img style={{ margin: "-60px" }} src={iconUrl} alt="Img_Doc" />
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {weather.temp}°
+              <img src={iconUrl} alt="Img_Doc" />
+            </div>
             <CloudIcon style={{ fontSize: "250px" }} />
           </div>
           {/*== Tempreture and icon== */}
