@@ -1,11 +1,19 @@
 import CloudIcon from "@mui/icons-material/Cloud";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import "dayjs/locale/ar";
 
-export default function Card({ weather }) {
+dayjs.extend(utc);
+dayjs.extend(timezone);
+export default function Card({ weather, language }) {
+  !language ? dayjs.locale("ar") : dayjs.locale("en");
+  const date = dayjs().tz("Asia/Riyadh").format("dddd, D MMMM YYYY");
   const iconUrl = weather.icon
     ? `https://openweathermap.org/img/wn/${weather.icon}@2x.png`
     : null;
   if (!weather) {
-    return;
+    return null;
   } else {
     return (
       <div
@@ -24,10 +32,11 @@ export default function Card({ weather }) {
               display: "flex",
               alignItems: "end",
               justifyContent: "space-between",
+              fontSize: "23px",
             }}
           >
             <h1 style={{ margin: "0px 0px" }}>{weather.name}</h1>
-            <h3 style={{ margin: "0px 0px" }}>2025</h3>
+            <h3 style={{ margin: "0px 0px" }}>{date}</h3>
           </div>
           <hr />
 
@@ -50,8 +59,8 @@ export default function Card({ weather }) {
           <div>
             {weather.desc}
             <br />
-            الدرجة الأقل : {weather.temp_min} | الدرجة القصوى :
-            {weather.temp_max}
+            {language ? "Min" : "الدرجة الأقل"}: {weather.temp_min} |{" "}
+            {language ? "Max" : "الدرجة القصوى"}:{weather.temp_max}
           </div>
           {/* ==additional details== */}
         </div>

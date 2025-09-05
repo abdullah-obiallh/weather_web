@@ -7,7 +7,7 @@ import Grow from "@mui/material/Grow";
 
 import Card from "./Components/Card";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   function HideShowToast(Massage) {
@@ -19,6 +19,7 @@ function App() {
     }, 2000);
   }
   const [Show, setShow] = useState(false);
+  const [language, setlanguage] = useState(false);
   const [weather, setWeather] = useState(null);
   const [ShowMassage, setShowMassage] = useState("");
   const API_KEY = process.env.REACT_APP_OPENWEATHER_KEY;
@@ -26,7 +27,6 @@ function App() {
   const [inputfield, setinputfield] = useState("");
 
   async function fetchWeather(cityName) {
-    // حماية: تأكد من وجود اسم
     if (!cityName || cityName.trim() === "") {
       HideShowToast("Please type the city name then click Enter");
 
@@ -41,7 +41,7 @@ function App() {
             q: cityName.trim(),
             appid: API_KEY,
             units: "metric",
-            lang: "ar",
+            lang: language ? "en" : "ar",
           },
         }
       );
@@ -61,6 +61,8 @@ function App() {
     } catch (err) {
       if (err.response.status === 404) {
         HideShowToast("country is not found");
+      } else {
+        HideShowToast("Something went wrong");
       }
     } finally {
     }
@@ -74,16 +76,18 @@ function App() {
       fetchWeather(inputfield);
     }
   }
+  function handelLanguageClick(e) {
+    setlanguage(!language);
+  }
   useEffect(() => {
-    fetchWeather("Hail");
-  }, []);
-
+    fetchWeather(inputfield);
+  }, [language]);
   return (
     <div>
       <SnackBar State={Show} Massage={ShowMassage} />
 
       <div
-        dir="rtl"
+        dir={language ? "ltr" : "rtl"}
         style={{ fontFamily: "IBM", fontWeight: "300", color: "white" }}
         className="App"
       >
@@ -95,6 +99,7 @@ function App() {
           }}
         >
           <div
+            dir={language ? "ltr" : "rtl"}
             style={{
               display: "flex",
               width: "100%",
@@ -103,32 +108,55 @@ function App() {
               marginBottom: "10px",
             }}
           >
+            <TravelExploreIcon
+              style={{ fontSize: "35px", margin: "0px 3px" }}
+            />
             <TextField
               value={inputfield}
               onChange={handelChangeSearchfield}
               onKeyDown={handelsendkey}
-              placeholder="city"
+              placeholder="Enter City"
               style={{
-                width: "80%",
-                background: "#ffffff2b",
+                paddingrig: "10px",
+                width: "90%",
+                background: "#ffffff4f",
+
+                borderRadius: "10px",
+              }}
+              InputProps={{
+                style: {
+                  fontSize: "27px",
+                  color: "#ddd",
+                  height: "60px",
+                },
+              }}
+              sx={{
+                width: "350px",
+                background: "#ffffff30",
+                borderRadius: "8px",
+                "& .MuiInputBase-input::placeholder": {
+                  color: "#ddd",
+                  opacity: 1,
+                },
               }}
               variant="filled"
             />
-            <TravelExploreIcon style={{ fontSize: "35px" }} />
           </div>
           <Grow
             in={Boolean(weather)}
-            key={weather?.name}
+            key={[weather?.name, language]}
             timeout={800}
             unmountOnExit
           >
             <div>
-              <Card weather={weather} />
+              <Card weather={weather} language={language} />
               <Button
                 style={{ marginTop: "13px", background: "white" }}
                 variant="text"
+                value={language}
+                onClick={handelLanguageClick}
               >
-                English
+                {!language ? "English" : "Arabic"}
               </Button>
             </div>
           </Grow>
