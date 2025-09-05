@@ -49,6 +49,7 @@ function App() {
 
       // هنا نحول شكل البيانات إلى كائن أبسط نستخدمه في العرض
       const data = response.data;
+      console.log(data);
       const payload = {
         name: data.name,
         temp: Math.round(data.main?.temp),
@@ -56,6 +57,8 @@ function App() {
         temp_max: Math.round(data.main?.temp_max),
         desc: data.weather?.[0]?.description,
         icon: data.weather?.[0]?.icon,
+        country: data.sys?.country,
+        wind: data.wind.speed,
       };
 
       setWeather(payload);
@@ -85,7 +88,7 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
   return (
-    <Grid container>
+    <Grid className="container">
       <Grid size={{ xs: 12, md: 12 }}>
         <div>
           <SnackBar State={Show} Massage={ShowMassage} />

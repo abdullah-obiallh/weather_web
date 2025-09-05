@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import "dayjs/locale/ar";
+import AirIcon from "@mui/icons-material/Air";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -21,7 +22,7 @@ export default function Card({ weather, language }) {
         style={{
           borderRadius: "15px",
           boxShadow: "6px 7px 1px #3e3e3eb3",
-          background: "#0d47a1",
+          background: "#345b91ff",
           padding: "10px",
         }}
       >
@@ -35,7 +36,12 @@ export default function Card({ weather, language }) {
               fontSize: "23px",
             }}
           >
-            <h1 style={{ margin: "0px 10px" }}>{weather.name}</h1>
+            <h1 style={{ margin: "0px 10px" }}>
+              {weather.name}{" "}
+              <span style={{ fontSize: "27px", margin: "0px 5px" }}>
+                {weather.country}
+              </span>
+            </h1>
             <h3 style={{ margin: "0px 10px" }}>{date}</h3>
           </div>
           <hr />
@@ -59,11 +65,23 @@ export default function Card({ weather, language }) {
           </div>
           {/*== Tempreture and icon== */}
           {/* additional details */}
-          <div>
-            {weather.desc}
-            <br />
-            {language ? "Min" : "الدرجة الأقل"}: {weather.temp_min} |{" "}
-            {language ? "Max" : "الدرجة القصوى"}:{weather.temp_max}
+          <div style={{ fontSize: "25px" }}>
+            <span
+              style={{
+                display: "flex",
+                gap: "7px",
+                alignItems: "center",
+              }}
+            >
+              {" "}
+              <span>{weather.desc} </span>|
+              <span>
+                {(language ? "wind Speed  " : "سرعة الرياح  ") + weather.wind}
+              </span>
+              <AirIcon />
+            </span>
+            {language ? "  Min  " : " الدرجة الأقل "}: {weather.temp_min} |
+            {language ? "  Max  " : " الدرجة القصوى "}: {weather.temp_max}
           </div>
           {/* ==additional details== */}
         </div>
