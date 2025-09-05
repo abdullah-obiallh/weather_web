@@ -81,6 +81,7 @@ function App() {
   }
   useEffect(() => {
     fetchWeather(inputfield);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
   return (
     <div>
