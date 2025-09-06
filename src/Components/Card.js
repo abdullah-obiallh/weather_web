@@ -50,7 +50,7 @@ export default function Card({ weather, language }) {
           {/* Tempreture and icon */}
           <Grid>
             <Grid container>
-              <Grid size={{ md: 6, xs: 5 }}>
+              <Grid size={{ md: 5, xs: 5 }}>
                 <span
                   style={{
                     fontSize: "50px",
@@ -62,7 +62,7 @@ export default function Card({ weather, language }) {
                   <img src={iconUrl} alt="Img_Doc" />
                 </span>
               </Grid>
-              <Grid size={{ md: 6, xs: 7 }}>
+              <Grid size={{ md: 7, xs: 7 }}>
                 <CloudIcon style={{ fontSize: "200px" }} />
               </Grid>
             </Grid>
