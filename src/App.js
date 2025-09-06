@@ -94,35 +94,30 @@ function App() {
   }, [language]);
   return (
     <Grid className="container">
-      <Grid size={{ xs: 12, md: 12 }}>
-        <div>
-          <SnackBar State={Show} Massage={ShowMassage} />
-
-          <div
-            dir={language ? "ltr" : "rtl"}
-            style={{ fontFamily: "IBM", fontWeight: "300", color: "white" }}
-            className="App"
-          >
-            <div
+      <div>
+        <SnackBar State={Show} Massage={ShowMassage} />
+        <div
+          dir={language ? "ltr" : "rtl"}
+          style={{ fontFamily: "IBM", fontWeight: "300", color: "white" }}
+          className="App"
+        >
+          <div>
+            <Grid
+              container
+              dir={language ? "ltr" : "rtl"}
               style={{
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "end",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "10px",
               }}
             >
-              <div
-                dir={language ? "ltr" : "rtl"}
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginBottom: "10px",
-                }}
-              >
+              <Grid>
                 <TravelExploreIcon
                   style={{ fontSize: "35px", margin: "0px 3px" }}
                 />
+              </Grid>
+              <Grid size={{ xs: 10, lg: 10, md: 10 }}>
                 <TextField
                   value={inputfield}
                   onChange={handelChangeSearchfield}
@@ -130,10 +125,9 @@ function App() {
                   placeholder="Enter City"
                   style={{
                     paddingrig: "10px",
-                    width: "90%",
                     background: "#ffffff4f",
-
                     borderRadius: "10px",
+                    width: "100%",
                   }}
                   InputProps={{
                     style: {
@@ -153,7 +147,9 @@ function App() {
                   }}
                   variant="filled"
                 />
-              </div>
+              </Grid>
+            </Grid>
+            <Grid container>
               {loading ? (
                 <span
                   style={{
@@ -165,28 +161,30 @@ function App() {
                   <CircularProgress size="120px" />
                 </span>
               ) : null}
-              <Grow
-                in={Boolean(weather)}
-                key={[weather?.name]}
-                timeout={800}
-                unmountOnExit
-              >
-                <div>
-                  <Card weather={weather} language={language} />
-                  <Button
-                    style={{ marginTop: "13px", background: "white" }}
-                    variant="text"
-                    value={language}
-                    onClick={handelLanguageClick}
-                  >
-                    {!language ? "English" : "Arabic"}
-                  </Button>
-                </div>
-              </Grow>
-            </div>
+              <div>
+                <Grow
+                  in={Boolean(weather)}
+                  key={[weather?.name]}
+                  timeout={800}
+                  unmountOnExit
+                >
+                  <span style={{}}>
+                    <Card weather={weather} language={language} />
+                    <Button
+                      style={{ marginTop: "13px", background: "white" }}
+                      variant="text"
+                      value={language}
+                      onClick={handelLanguageClick}
+                    >
+                      {!language ? "English" : "Arabic"}
+                    </Button>
+                  </span>
+                </Grow>
+              </div>
+            </Grid>
           </div>
         </div>
-      </Grid>
+      </div>
     </Grid>
   );
 }

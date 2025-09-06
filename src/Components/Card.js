@@ -4,6 +4,7 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import "dayjs/locale/ar";
 import AirIcon from "@mui/icons-material/Air";
+import Grid from "@mui/material/Grid";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -26,9 +27,10 @@ export default function Card({ weather, language }) {
           padding: "10px",
         }}
       >
-        <div className="inside" style={{ margin: "10px 7px" }}>
+        <Grid style={{ margin: "10px 7px" }}>
           {/* City + Time */}
-          <div
+          <Grid
+            size={12}
             style={{
               display: "flex",
               alignItems: "end",
@@ -37,35 +39,37 @@ export default function Card({ weather, language }) {
             }}
           >
             <h1 style={{ margin: "0px 10px" }}>
-              {weather.name}{" "}
-              <span style={{ fontSize: "27px", margin: "0px 5px" }}>
+              {weather.name}
+              <span style={{ fontSize: "27px", margin: "0px 20px" }}>
                 {weather.country}
               </span>
             </h1>
-            <h3 style={{ margin: "0px 10px" }}>{date}</h3>
-          </div>
+          </Grid>
           <hr />
-
           {/* == City + Time == */}
           {/* Tempreture and icon */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "50px",
-              fontSize: "100px",
-              justifyContent: "space-around",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center" }}>
-              {weather.temp}°
-              <img src={iconUrl} alt="Img_Doc" />
-            </div>
-            <CloudIcon style={{ fontSize: "250px" }} />
-          </div>
+          <Grid>
+            <Grid container>
+              <Grid size={{ md: 6, xs: 5 }}>
+                <span
+                  style={{
+                    fontSize: "50px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {weather.temp}°
+                  <img src={iconUrl} alt="Img_Doc" />
+                </span>
+              </Grid>
+              <Grid size={{ md: 6, xs: 7 }}>
+                <CloudIcon style={{ fontSize: "200px" }} />
+              </Grid>
+            </Grid>
+          </Grid>
           {/*== Tempreture and icon== */}
           {/* additional details */}
-          <div style={{ fontSize: "25px" }}>
+          <Grid style={{ fontSize: "25px" }}>
             <span
               style={{
                 display: "flex",
@@ -73,18 +77,25 @@ export default function Card({ weather, language }) {
                 alignItems: "center",
               }}
             >
-              {" "}
-              <span>{weather.desc} </span>|
-              <span>
-                {(language ? "wind Speed  " : "سرعة الرياح  ") + weather.wind}
+              <span style={{ fontSize: "20px" }}>
+                {weather.desc} |
+                <span>
+                  {(language ? " wind Speed  " : " سرعة الرياح  ") +
+                    weather.wind}
+                </span>
               </span>
               <AirIcon />
             </span>
-            {language ? "  Min  " : " الدرجة الأقل "}: {weather.temp_min} |
-            {language ? "  Max  " : " الدرجة القصوى "}: {weather.temp_max}
-          </div>
+            <span style={{ fontSize: "22px" }}>
+              {language ? "  Min  " : " الدرجة الأقل "}: {weather.temp_min} |
+              {language ? "  Max  " : " الدرجة القصوى "}: {weather.temp_max}
+            </span>
+          </Grid>
           {/* ==additional details== */}
-        </div>
+          {/* Date */}
+          {date}
+          {/* ==Date== */}
+        </Grid>
       </div>
     );
   }
