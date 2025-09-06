@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import SnackBar from "./Components/SnackBar";
 import Grow from "@mui/material/Grow";
 import Grid from "@mui/material/Grid";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import Card from "./Components/Card";
 import axios from "axios";
@@ -19,6 +20,7 @@ function App() {
       setShow(false);
     }, 2000);
   }
+  const [loading, setloading] = useState(false);
   const [Show, setShow] = useState(false);
   const [language, setlanguage] = useState(false);
   const [weather, setWeather] = useState(null);
@@ -33,7 +35,9 @@ function App() {
 
       return;
     }
+    setWeather(null);
 
+    setloading(true);
     try {
       const response = await axios.get(
         "https://api.openweathermap.org/data/2.5/weather",
@@ -47,7 +51,6 @@ function App() {
         }
       );
 
-      // هنا نحول شكل البيانات إلى كائن أبسط نستخدمه في العرض
       const data = response.data;
       console.log(data);
       const payload = {
@@ -60,6 +63,7 @@ function App() {
         country: data.sys?.country,
         wind: data.wind.speed,
       };
+      setloading(false);
 
       setWeather(payload);
     } catch (err) {
@@ -69,6 +73,7 @@ function App() {
         HideShowToast("Something went wrong");
       }
     } finally {
+      setloading(false);
     }
   }
 
@@ -149,9 +154,20 @@ function App() {
                   variant="filled"
                 />
               </div>
+              {loading ? (
+                <span
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "center",
+                  }}
+                >
+                  <CircularProgress size="120px" />
+                </span>
+              ) : null}
               <Grow
                 in={Boolean(weather)}
-                key={[weather?.name, language]}
+                key={[weather?.name]}
                 timeout={800}
                 unmountOnExit
               >
